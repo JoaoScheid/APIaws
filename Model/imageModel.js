@@ -6,3 +6,5 @@ class Image{
         this.titulo = titulo;
     }
 }
+
+module.exports = Image;
