@@ -1,58 +1,24 @@
-const database = require('../database/connection');
-const imageService = require("../Service/imageService.js");
+const awsService = require("../Service/awsService.js");
 
-class awsController {
-async novaReferencia(request, response) {
-    try{
-        const { referencia, id_imagem, id_usuario } = request.body;
-        const result = await awsService.postRef({ referencia, id_imagem, id_usuario });
-        return response.json(result);
-    } catch (error) {
-        return response.status(500).json({ error: error.message });
+class AwsController {
+    async uploadArquivo(request, response) {
+        try {
+            const { filePath, bucketName, keyName } = request.body;
+            const fileUrl = await awsService.uploadFile(filePath, bucketName, keyName);
+            return response.json({ message: "Upload realizado com sucesso!", fileUrl });
+        } catch (error) {
+            return response.status(500).json({ error: error.message });
+        }
+    }
+
+    async baixarArquivo(request, response) {
+        try {
+            await awsService.downloadFile(request, response);
+            return response.json({ message: "Download realizado com sucesso!"});
+        } catch (error) {
+            return response.status(500).json({ error: error.message });
+        }
     }
 }
 
-async listarReferencias(request, response){
-    try{
-        const refs = await awsService.getRefs();
-        return response.json(images);
-    }catch(error){
-        return response.status(500).json({ error: error.message });
-    }
-}
-
-
-async listarImagem(request, response){
-    try {
-        const { id } = request.params;
-        const image = await imageService.getImage(id);
-        return response.json(image);
-    } catch (error) {
-        return response.status(500).json({ error: error.message });
-    }
-}
-
-async atualizarImagem(request, response) {
-    try {
-        const { id } = request.params;
-        const { titulo } = request.body;
-        const result = await imageService.putImage(id, titulo);
-        return response.json(result);
-    } catch (error) {
-        return response.status(500).json({ error: error.message });
-    }
-}
-
-
-async removerImagem(request, response) {
-    try {
-        const { id } = request.params;
-        const result = await imageService.deleteImage(id);
-        return response.json(result);
-    } catch (error) {
-        return response.status(500).json({ error: error.message });
-    }
-}
-}
-
-module.exports = new imageController();
+module.exports = new AwsController();

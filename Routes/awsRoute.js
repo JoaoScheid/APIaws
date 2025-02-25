@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const s3Controller = require('../controllers/s3Controller');
+const AwsController = require('../Controller/awsController');
 
-router.post('/upload', s3Controller.uploadFileController);
-router.post('/download', s3Controller.downloadFileController);
+router.post('/upload', AwsController.uploadArquivo);
+router.get('/download', AwsController.baixarArquivo);
 
 module.exports = router;

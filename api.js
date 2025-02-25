@@ -4,7 +4,7 @@ app.use(express.json());
 const cors = require('cors');
 const userRoutes = require('./Routes/UserRoute');
 const imagesRoutes = require('./Routes/ImageRoute')
-const awsRoutes = require('./Routes/awsRoutes');
+const awsRoutes = require('./Routes/awsRoute');
 app.use(cors());
 app.use(userRoutes);
 app.use(imagesRoutes);
