@@ -1,28 +1,30 @@
 const fs = require('fs');
 const path = require('path');
-const s3 = require('../conf/aws'); // Importando a configuração do S3
+const s3 = require('../conf/aws'); 
+const { v4: uuidv4 } = require('uuid'); 
 
-const ref = UUID.new()
-const uploadFile = (filePath,bucketName, keyName) => {
+const uploadFile = (filePath, bucketName) => {
   const fileContent = fs.readFileSync(filePath);
+  
+  
+  const keyName = uuidv4(); 
 
   const params = {
-    Bucket: "bucketmi75",  // Nome do seu bucket S3
-    Key: keyName,        // Nome do arquivo no S3
-    Body: fileContent    // Conteúdo do arquivo
+    Bucket: bucketName,   // Nome do seu bucket S3
+    Key: keyName,         // Usando o UUID como chave
+    Body: fileContent     // Conteúdo do arquivo
   };
 
   return s3.upload(params).promise()
     .then(data => {
       console.log('Arquivo carregado com sucesso:', data.Location);
-      return data.Location;
+      return { location: data.Location, keyName }; 
     })
     .catch(err => {
       console.error('Erro ao fazer o upload:', err);
       throw err;
     });
 };
-
 
 const downloadFile = async (req, res) => {
   try {
@@ -39,7 +41,6 @@ const downloadFile = async (req, res) => {
               return res.status(500).json({ error: "Error downloading file" });
           }
 
-   
           const directoryPath = path.join('C:', 'Users', 'joao_p_scheid', 'Documents', 'Github', 'aulaIago', 'images');
 
           if (!fs.existsSync(directoryPath)) {
@@ -59,7 +60,6 @@ const downloadFile = async (req, res) => {
       res.status(500).json({ error: "Failed to retrieve or save the image." });
   }
 };
-
 
 module.exports = {
   uploadFile,

@@ -4,15 +4,16 @@ const imageController = require("./imageController.js");
 class AwsController {
     async uploadArquivo(request, response) {
         try {
-            const { filePath, bucketName, keyName } = request.body;
-            const fileUrl = await awsService.uploadFile(filePath, bucketName, keyName);
-    
+            const { filePath, bucketName } = request.body;
+
+            const { location: fileUrl, keyName } = await awsService.uploadFile(filePath, bucketName);
+
             const data_criacao = new Date().toISOString(); 
+            
             await imageController.novaImagem({
                 body: { referencia: keyName, data_criacao, titulo: "Imagem AWS" }
             }, response);
-    
-        
+
             if (!response.headersSent) { 
                 response.json({ message: "Upload e registro realizados com sucesso!", fileUrl, keyName });
             }
