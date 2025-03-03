@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const s3 = require('../conf/aws'); // Importando a configuração do S3
 
-
+const ref = UUID.new()
 const uploadFile = (filePath,bucketName, keyName) => {
   const fileContent = fs.readFileSync(filePath);
 
