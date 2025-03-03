@@ -1,8 +1,8 @@
 const database = require("../database/connection");
 
-  async function insertImage(image) {
+async function insertImage(image) {
     try {
-        const {referencia, data_criacao, titulo } = image;
+        const { referencia, data_criacao, titulo } = image;
         await database.insert({ referencia, data_criacao, titulo }).table("Imagem");
         return { message: "Imagem criada com sucesso!" };
     } catch (error) {
@@ -12,8 +12,8 @@ const database = require("../database/connection");
 
 async function listImages() {
     try {
-        const image = await database.select("*").table("Imagem");
-        return image;
+        const images = await database.select("*").table("Imagem");
+        return images;
     } catch (error) {
         throw new Error("Erro ao listar imagens: " + error.message);
     }
@@ -46,4 +46,4 @@ async function deleteImage(id) {
     }
 }
 
-module.exports= {insertImage, listImage, listImages, updateImage, deleteImage}
+module.exports = { insertImage, listImages, listImage, updateImage, deleteImage };

@@ -1,5 +1,5 @@
-const database = require('../database/connection');
-const userService = require("../Service/userService.js");
+const database = require('../database/connection.js');
+const userService = require("../service/userService.js");
 
 
 class userController {

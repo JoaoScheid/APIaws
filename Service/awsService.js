@@ -2,12 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const s3 = require('../conf/aws'); // Importando a configuração do S3
 
-// Função para fazer o upload de um arquivo
-const uploadFile = (filePath, bucketName, keyName) => {
+
+const uploadFile = (filePath,bucketName, keyName) => {
   const fileContent = fs.readFileSync(filePath);
 
   const params = {
-    Bucket: bucketName,  // Nome do seu bucket S3
+    Bucket: "bucketmi75",  // Nome do seu bucket S3
     Key: keyName,        // Nome do arquivo no S3
     Body: fileContent    // Conteúdo do arquivo
   };
@@ -23,7 +23,7 @@ const uploadFile = (filePath, bucketName, keyName) => {
     });
 };
 
-// Função para baixar um arquivo do S3
+
 const downloadFile = async (req, res) => {
   try {
       const fileName = req.body.fileName;
@@ -59,6 +59,7 @@ const downloadFile = async (req, res) => {
       res.status(500).json({ error: "Failed to retrieve or save the image." });
   }
 };
+
 
 module.exports = {
   uploadFile,

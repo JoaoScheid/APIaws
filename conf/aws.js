@@ -1,14 +1,13 @@
 
 const AWS = require('aws-sdk');
 
-// Configuração das credenciais AWS
+
 AWS.config.update({
-  region: 'us-east-2',  // Substitua pela sua região
-  accessKeyId: 'AKIA5RRHCKYZSZDVDH77',
-  secretAccessKey: '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'
+  region: 'us-east-2',  
+  accessKeyId: 'AKIA5RRHCKYZTUINUDUY',
+  secretAccessKey: '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'
 });
 
-// Criação da instância do S3
 const s3 = new AWS.S3();
 
 module.exports = s3;

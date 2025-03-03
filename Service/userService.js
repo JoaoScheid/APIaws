@@ -1,5 +1,5 @@
-  const User = require("../Model/userModel.js")
-  const userRepository = require("../Repository/userRepository.js")
+  const User = require("../model/userModel.js")
+  const userRepository = require("../repository/userRepository.js")
 
   async function postUser(user){
     return await  userRepository.insertUser(user);

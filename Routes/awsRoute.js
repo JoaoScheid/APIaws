@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const AwsController = require('../Controller/awsController');
+const AwsController = require('../controller/awsController');
 
 router.post('/upload', AwsController.uploadArquivo);
 router.get('/download', AwsController.baixarArquivo);
