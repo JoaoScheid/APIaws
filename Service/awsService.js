@@ -9,7 +9,7 @@ const uploadFile = (filePath, bucketName) => {
 
   const extname = path.extname(filePath);  
   
-//aaa
+
   const keyName = uuidv4() + extname; 
 
   const params = {
