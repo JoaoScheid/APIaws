@@ -6,12 +6,15 @@ const { v4: uuidv4 } = require('uuid');
 const uploadFile = (filePath, bucketName) => {
   const fileContent = fs.readFileSync(filePath);
   
+
+  const extname = path.extname(filePath);  
   
-  const keyName = uuidv4(); 
+
+  const keyName = uuidv4() + extname; 
 
   const params = {
     Bucket: bucketName,   // Nome do seu bucket S3
-    Key: keyName,         // Usando o UUID como chave
+    Key: keyName,         // Usando UUID + extensão como chave
     Body: fileContent     // Conteúdo do arquivo
   };
 
@@ -25,6 +28,7 @@ const uploadFile = (filePath, bucketName) => {
       throw err;
     });
 };
+
 
 const downloadFile = async (req, res) => {
   try {
